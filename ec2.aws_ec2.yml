@@ -3,7 +3,7 @@ regions:
 - us-east-1
 keyed_groups:
   - prefix: tag
-    key: tags.Name
+    key: tags.Maker
 filters:
-  tag:Name:
-    - 'mysql-test-aws-kfir-01'
+  tag:Maker:
+    - 'Kfir'

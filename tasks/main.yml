@@ -1,13 +1,4 @@
 ---
-- name: Print EC2 tags
-  debug:
-    var: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
-- name: Print EC2 tags
-  vars:
-    restart_tag: "{{ hostvars[inventory_hostname].tags.Restart }}"
-  debug:
-#    var: hostvars[inventory_hostname].tags.Name
-    msg: "{{ restart_tag }}"
 - name: Set hostname based on tags
   ansible.builtin.hostname:
     name: "{{ hostvars[inventory_hostname].tags.Name }}" 

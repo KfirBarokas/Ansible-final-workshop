@@ -1,6 +1,6 @@
 ---
 - name: Do stuff
-  hosts: tag_mysql_test_aws_kfir_01
+  hosts: tag_Kfir
   vars:
     tags: "{{ hostvars[inventory_hostname].tags }}"
   gather_facts: yes
