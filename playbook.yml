@@ -1,12 +1,13 @@
 ---
 - name: Do stuff
   hosts: tag_mysql_test_aws_kfir_01
+  vars:
+    tags: "{{ hostvars[inventory_hostname].tags }}"
   gather_facts: yes
   tasks:
   - name: Print instance public IPs
     debug:
-      msg: "{{ hostvars[inventory_hostname].tags }}"
-
-  - name: Print EC2 tags
-    debug:
-      var: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+      msg: "{{ tags }}"
+  - name: Print IPs
+    import_tasks: main.yml
+    when: tags.Manage is defined and hostvars[inventory_hostname].tags.Manage == 'true'
