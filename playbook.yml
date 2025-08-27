@@ -1,0 +1,14 @@
+---
+- name: Do stuff
+  hosts: tag_Kfir
+  vars:
+    tags: "{{ hostvars[inventory_hostname].tags }}"
+  gather_facts: yes
+  tasks:
+  - name: Print instance public IPs
+    debug:
+      msg: "{{ tags }}"
+  - name: Print IPs
+    import_tasks: tasks/main.yml
+    become: true
+    when: tags.Manage is defined and hostvars[inventory_hostname].tags.Manage == 'true'
