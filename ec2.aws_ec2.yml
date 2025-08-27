@@ -1,0 +1,9 @@
+plugin: amazon.aws.aws_ec2
+regions:
+- us-east-1
+filters:
+  tag:Name:
+    - 'mysql-test-aws-kfir-01'
+hostnames:
+  - tag:Name
+  - tag:Service
