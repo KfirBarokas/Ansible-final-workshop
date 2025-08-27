@@ -3,8 +3,11 @@
   debug:
     var: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 - name: Print EC2 tags
+  vars:
+    restart_tag: "{{ hostvars[inventory_hostname].tags.Restart }}"
   debug:
-    var: hostvars[inventory_hostname].tags.Name
+#    var: hostvars[inventory_hostname].tags.Name
+    msg: "{{ restart_tag }}"
 - name: Set hostname based on tags
   ansible.builtin.hostname:
     name: "{{ hostvars[inventory_hostname].tags.Name }}" 
@@ -14,3 +17,24 @@
     allow_downgrade: true
 #    allowerasing: true
     state: present
+- name: Ensure cronie is installed
+  ansible.builtin.package:
+    name: "cronie"
+    state: present
+- name: Start and enable cronie
+  ansible.builtin.service:
+    name: crond
+    state: started
+    enabled: yes
+- name: Creates a cron file under /etc/cron.d
+  vars:
+    restart_tag: "{{ hostvars[inventory_hostname].tags.Restart }}"
+    tag_time: "{{ restart_tag.split('/')[1] }}"
+  ansible.builtin.cron:
+    name: yum autoupdate
+    weekday: "{{ restart_tag.split('/')[0] }}"
+    minute: "{{ tag_time.split(':')[1] }}"
+    hour: "{{ tag_time.split(':')[0] }}"
+    user: root
+    job: "YUMINTERACTIVE=0 /usr/sbin/yum-autoupdate"
+    cron_file: ansible_yum-autoupdat
