@@ -9,6 +9,7 @@ its faster create AMIs than ansible files for smaller projects
 Screenshots
 
 
+![image(5)](https://github.com/user-attachments/assets/791e1a24-8fb6-4f0b-a844-19dec3c65419)
 ![image(4)](https://github.com/user-attachments/assets/4eff2035-3041-45b0-8375-3930ba7dbd9c)
 ![image(3)](https://github.com/user-attachments/assets/263ad75f-89a0-4569-8d39-4c58a337f82d)
 ![image(2)](https://github.com/user-attachments/assets/d443f017-488c-436b-8704-6043043bc9c3)
