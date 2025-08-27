@@ -8,6 +8,13 @@
     allow_downgrade: true
 #    allowerasing: true
     state: present
+- name: Start and enable service
+  vars:
+    mariadb_service: "mariadb"
+  ansible.builtin.service:
+    name: "{{ mariadb_service if 'mariadb' in hostvars[inventory_hostname].tags.Service else hostvars[inventory_hostname].tags.Service }}"
+    state: started
+    enabled: yes
 - name: Ensure cronie is installed
   ansible.builtin.package:
     name: "cronie"
