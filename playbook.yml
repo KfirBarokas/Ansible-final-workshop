@@ -5,8 +5,8 @@
   tasks:
   - name: Print instance public IPs
     debug:
-      msg: "Instance IP: {{ ansible_host }}"
+      msg: "{{ hostvars[inventory_hostname].tags }}"
 
   - name: Print EC2 tags
     debug:
-      var: ansible_ec2_tags
+      var: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
