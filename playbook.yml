@@ -1,0 +1,31 @@
+---
+- name: Do stuff
+  hosts: servers
+  become: true
+  tasks:
+  - name: Update package cache
+    yum:
+      name: '*'
+      state: latest
+    become: true
+  - name: Install Python and pip
+    yum:
+      name: "{{ item }}"
+      state: present
+    become: true
+    loop:
+      - python3
+      - python3-pip
+  - name: Install boto3 and botocore with pip3 module
+    ansible.builtin.pip:
+      name: 
+      - boto3
+      - botocore
+  - name: Retrieve all tags on an instance
+    amazon.aws.ec2_tag_info:
+      region: eu-west-1
+      resource: i-xxxxxxxxxxxxxxxxx
+    register: instance_tags
+  - name: Print tags
+    ansible.builtin.debug:
+      var: instance_tags
