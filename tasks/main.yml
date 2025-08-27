@@ -1,0 +1,16 @@
+---
+- name: Print EC2 tags
+  debug:
+    var: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+- name: Print EC2 tags
+  debug:
+    var: hostvars[inventory_hostname].tags.Name
+- name: Set hostname based on tags
+  ansible.builtin.hostname:
+    name: "{{ hostvars[inventory_hostname].tags.Name }}" 
+- name: Install service
+  ansible.builtin.dnf:
+    name: "{{ hostvars[inventory_hostname].tags.Service }}-{{ hostvars[inventory_hostname].tags.Version }}"
+    allow_downgrade: true
+#    allowerasing: true
+    state: present

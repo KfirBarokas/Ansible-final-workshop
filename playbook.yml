@@ -9,5 +9,6 @@
     debug:
       msg: "{{ tags }}"
   - name: Print IPs
-    import_tasks: main.yml
+    import_tasks: tasks/main.yml
+    become: true
     when: tags.Manage is defined and hostvars[inventory_hostname].tags.Manage == 'true'
